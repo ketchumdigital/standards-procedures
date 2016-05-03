@@ -1,7 +1,5 @@
 # Git Standards & Procedures
 
--
-
 
 ### Configuration
 
@@ -47,12 +45,6 @@ git remote add pantheon <pantheon_repo>
 #### Sync your fork
 
 ```sh
-git fork-sync
-```
-
-or manually:
-
-```sh
 git checkout master
 git fetch --all
 git rebase -p upstream/master
@@ -77,12 +69,6 @@ git commit -m "commit message"
 
 
 #### Sync your topics
-
-```sh
-git fork-sync -t <topic_branch>
-```
-
-or manually:
 
 ```sh
 git checkout master
@@ -127,12 +113,6 @@ Only when your topic branch is ready for code review and merging.
 #### Start clean
 
 ```sh
-git nuke <topic_branch>
-```
-
-or manually:
-
-```sh
 git branch -d <topic_branch>
 git push origin :<topic_branch>
 ```
@@ -173,20 +153,4 @@ git checkout master
 git fetch --all
 git reset --hard origin/master
 git push pantheon master
-```
-
-
-#### Mirrors
-
-If you need to mirror a repository, create a blank repo at the target and mirror push to it:
-
-```sh
-git fork-sync -u <mirror_name> -u <mirror_name> ...
-```
-
-or manually:
-
-```sh
-cd local_repogit remote add <mirror_name> <user>@<host>:<path_to_blank_mirror>
-git push --mirror <mirror_name>
 ```
