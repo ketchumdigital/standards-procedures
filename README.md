@@ -1,6 +1,7 @@
-# Standards & Procedures
+# Git Standards & Procedures
 
-## Git
+-
+
 
 ### Configuration
 
@@ -10,165 +11,182 @@ git config --global user.email "myemail@host.com"
 git config --global push.default simple
 ```
 
+
+### Fork upstream repository
+
+[https://bitbucket.org/ketchumdigital]()
+
+
+### Grant Ketchum Digital read access to your fork
+
+In BitBucket > Settings > Access management, add:
+
+```
+ketchumdigital
+```
+
+
+### Clone forked repository
+
+```sh
+git clone <forked_repo>
+```
+
+
+### Set up remotes
+
+```sh
+git remote add upstream <upstream_repo>
+git remote add pantheon <pantheon_repo>
+```
+
+
 ### Workflow
 
-#### Sync Your Fork
+
+#### Sync your fork
 
 ```sh
 git fork-sync
 ```
 
-#### Work on Topic Branches
+or manually:
 
 ```sh
 git checkout master
-git checkout -b topic-name
+git fetch --all
+git rebase -p upstream/master
+git push
 ```
 
-#### Make Atomic Commits
+
+#### Work on topic branches
+
+```sh
+git checkout master
+git checkout -b <topic_id-topic_branch>
+```
+
+
+#### Make atomic commits
 
 ```sh
 git add paths_to_add
-git commit -m "topic-id: commit message"
+git commit -m "commit message"
 ```
 
-#### Sync Your Topics
+
+#### Sync your topics
 
 ```sh
-git fork-sync -t topic_branch
+git fork-sync -t <topic_branch>
 ```
+
+or manually:
+
+```sh
+git checkout master
+git fetch --all
+git rebase -p upstream/master
+git push
+git rebase -p master <topic_branch>
+```
+
+
+#### Push
 
 The first time you push your topic branch to your origin:
 
 ```sh
-git checkout topic_branch
-git push -u origin topic_branch
+git checkout <topic_branch>
+git push -u origin <topic_branch>
 ```
 
 Subsequently after rebasing:
 
 ```sh
-git checkout topic_branch
+git checkout <topic_branch>
 git push -f
 ```
 
-You must use ‘-f’ as you’ve changed your commit history on your topic branch.
 
-Make a Pull Request
+#### Test and review your code
 
-Start clean
+If you need to test your code in the wild before creating a PR create a multidev instance in Pantheon (with the same name as your topic branch) and push your topic branch.
 
 ```sh
-git nuke topic_branch
+git push pantheon <topic_branch>
+```
+
+
+#### Make a pull request
+
+Only when your topic branch is ready for code review and merging.
+
+
+#### Start clean
+
+```sh
+git nuke <topic_branch>
+```
+
+or manually:
+
+```sh
+git branch -d <topic_branch>
+git push origin :<topic_branch>
 ```
 
 Do this for any topic branch you wish to delete locally and remotely.
 
+
 ### For Maintainers / Integrators
 
-- Pull requests should include the tip of master before the developer’s changes. This show proper syncing of their topic branches
-- Pull requests from master to master should be rejected
-- You must have at least read access to a developer's fork
-- If you need to manually merge,always do ‘git merge --no-ff topic_branch’ to produce an explicit merge commit object
-- Don’t forget to keep mirrors in sync!
-- Staging and Production branches are never rebased
+- You must have at least read access to a developer's fork.
+- Pull requests should include the tip of master before the developer’s changes.
+- Pull requests from master to master should be rejected.
+- If you need to manually merge, always do ‘git merge --no-ff <topic_branch>’ to produce an explicit merge commit object.
+
+
+### Workflow
+
+
+#### Clone upstream repository
+
+```sh
+git clone <upstream_repo>
+```
+
+
+#### Setup remotes
+
+```sh
+git remote add origin <upstream_repo>
+git remote add pantheon <pantheon_repo>
+```
+
+
+#### Sync upstream
+
+```sh
+git checkout master
+git fetch --all
+git reset --hard origin/master
+git push pantheon master
+```
+
+
+#### Mirrors
 
 If you need to mirror a repository, create a blank repo at the target and mirror push to it:
 
 ```sh
-git fork-sync -u mirror_name -u mirror_name ...
+git fork-sync -u <mirror_name> -u <mirror_name> ...
 ```
 
-### Working with Staging and Production Branches
-
-With continuous integration (CI) and deployment (CD) it is often desirable to have the CI tool trigger builds and deploys off of specific branches. It’s also good practice to have explicit branches for mainline development (usually master, sometimes something else depending on client workflow), staging and production release candidates. For the examples below we presume master is used for mainline development - adjust the name for the mainline development branch accordingly.
-
-Create a staging branch for the first time, sync your fork and:
+or manually:
 
 ```sh
-git checkout master
-git checkout -b staging
-git push -u origin staging
-git push upstream staging
+cd local_repogit remote add <mirror_name> <user>@<host>:<path_to_blank_mirror>
+git push --mirror <mirror_name>
 ```
-
-‘-u’ should only be used for your fork. Also push to any mirrors.
-
-When code is ready to be shipped to staging, sync your fork and merge from master with an appropriate commit message and making sure everything is up to date before doing so:
-
-```sh
-git checkout staging
-git reset --hard upstream/staging
-git merge --no-ff master
-git push
-git push upstream
-```
-
-Also push to any mirrors.
-
-Creating aproduction branch for the first time sync your fork and:
-
-```sh
-git checkout staging
-git checkout -b production
-git push -u origin production
-git push upstream production
-```
-
-‘-u’ should only be used for your fork. Also push to any mirrors.
-
-When code is ready to be shipped to production, sync your fork and merge from staging with an appropriate commit message and making sure everything is up to date before doing so:
-
-```sh
-git checkout staging
-git reset --hard upstream/staging
-git checkout production
-git reset --hard upstream/production
-git merge --no-ff staging
-git push
-git push upstream
-```
-
-Also push to any mirrors.
-
-### Hotfixing
-
-If hotfixes need to be made on staging or production, those should be done off of the appropriate branch. In this case let’s say there was a production hotfix that needs to be made. Create a hotfix branch off of master after syncing your fork:
-
-```sh
-git checkout production
-git checkout -b hotfix_name
-git push -u origin hotfix_name
-git push upstream hotfix_name
-```
-
-Also push to any mirrors.
-
-Developers working on the hotfix will work on their fork on the hotfix branch. Pull requests, however, should be from their fork to the upstream hotfix branch. Once the hotfix is ready to be applied to production after syncing your fork:
-
-```sh
-git checkout production
-git reset --hard upstream/production
-git merge --no-ff hotfix
-git push
-git push upstream
-```
-
-Also push to any mirrors then backport the hotfix to master and clean up:
-
-```sh
-git checkout master
-git merge --no-ff production
-git push
-git push upstream
-```
-
-Also push to any mirrors and delete the hotfix branch at any mirrors:
-
-```sh
-git branch -d hotfix
-git push origin :hotfix
-git push remote :hotfix
-```
-
-Substitute staging as needed.
