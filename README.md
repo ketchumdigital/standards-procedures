@@ -172,19 +172,3 @@ git fetch --all
 git reset --hard origin/master
 git push pantheon master
 ```
-
-
-#### Mirrors
-
-If you need to mirror a repository, create a blank repo at the target and mirror push to it:
-
-```sh
-git fork-sync -u <mirror_name> -u <mirror_name> ...
-```
-
-or manually:
-
-```sh
-cd local_repogit remote add <mirror_name> <user>@<host>:<path_to_blank_mirror>
-git push --mirror <mirror_name>
-```
