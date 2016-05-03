@@ -1,7 +1,5 @@
 # Git Standards & Procedures
 
--
-
 
 ### Configuration
 
