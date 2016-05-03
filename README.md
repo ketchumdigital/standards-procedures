@@ -45,12 +45,6 @@ git remote add pantheon <pantheon_repo>
 #### Sync your fork
 
 ```sh
-git fork-sync
-```
-
-or manually:
-
-```sh
 git checkout master
 git fetch --all
 git rebase -p upstream/master
@@ -75,12 +69,6 @@ git commit -m "commit message"
 
 
 #### Sync your topics
-
-```sh
-git fork-sync -t <topic_branch>
-```
-
-or manually:
 
 ```sh
 git checkout master
