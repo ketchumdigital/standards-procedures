@@ -113,12 +113,6 @@ Only when your topic branch is ready for code review and merging.
 #### Start clean
 
 ```sh
-git nuke <topic_branch>
-```
-
-or manually:
-
-```sh
 git branch -d <topic_branch>
 git push origin :<topic_branch>
 ```
