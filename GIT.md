@@ -131,26 +131,28 @@ Do this for any topic branch you wish to delete locally and remotely.
 ### Workflow
 
 
-#### Clone upstream repository
+#### Grant admin access to the upstream repository
 
-```sh
-git clone <upstream_repo>
+In BitBucket > Settings > Access management, add:
+
+```
+<your_username>
 ```
 
 
-#### Setup remotes
-
-```sh
-git remote add origin <upstream_repo>
-git remote add pantheon <pantheon_repo>
-```
-
-
-#### Sync upstream
+#### Sync your fork
 
 ```sh
 git checkout master
 git fetch --all
-git reset --hard origin/master
+git rebase -p upstream/master
+git push
+```
+
+
+#### Push to Pantheon
+
+```sh
+git checkout master
 git push pantheon master
 ```
