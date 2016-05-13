@@ -107,7 +107,7 @@ git push pantheon <topic_branch>
 
 #### Make a pull request
 
-Only when your topic branch is ready for code review and merging.
+Only when your topic branch is ready for code review and merging. Remember to add Reviewers!
 
 
 #### Start clean
