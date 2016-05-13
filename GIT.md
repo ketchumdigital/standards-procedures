@@ -131,7 +131,7 @@ Do this for any topic branch you wish to delete locally and remotely.
 ### Workflow
 
 
-#### Grant admin access to the upstream repository
+#### Grant yourself admin access to the upstream repository
 
 In BitBucket > Settings > Access management, add:
 
