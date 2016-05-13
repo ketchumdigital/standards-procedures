@@ -107,7 +107,7 @@ git push pantheon <topic_branch>
 
 #### Make a pull request
 
-Only when your topic branch is ready for code review and merging.
+Only when your topic branch is ready for code review and merging. Remember to add Reviewers!
 
 
 #### Start clean
@@ -120,7 +120,7 @@ git push origin :<topic_branch>
 Do this for any topic branch you wish to delete locally and remotely.
 
 
-### For Maintainers / Integrators
+## For Maintainers / Integrators
 
 - You must have at least read access to a developer's fork.
 - Pull requests should include the tip of master before the developer’s changes.
@@ -131,12 +131,19 @@ Do this for any topic branch you wish to delete locally and remotely.
 ### Workflow
 
 
-#### Grant admin access to the upstream repository
+#### Grant yourself admin access to the upstream repository
 
 In BitBucket > Settings > Access management, add:
 
 ```
 <your_username>
+```
+
+
+#### Set up remotes for each of your forkers
+
+```sh
+git remote add fork_<forker> <forked_repo>
 ```
 
 
