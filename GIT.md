@@ -140,6 +140,13 @@ In BitBucket > Settings > Access management, add:
 ```
 
 
+#### Set up remotes for each of your forkers
+
+```sh
+git remote add fork_<forker> <forked_repo>
+```
+
+
 #### Sync your fork
 
 ```sh
