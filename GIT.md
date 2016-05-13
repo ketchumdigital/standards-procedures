@@ -120,7 +120,7 @@ git push origin :<topic_branch>
 Do this for any topic branch you wish to delete locally and remotely.
 
 
-### For Maintainers / Integrators
+## For Maintainers / Integrators
 
 - You must have at least read access to a developer's fork.
 - Pull requests should include the tip of master before the developer’s changes.
