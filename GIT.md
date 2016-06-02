@@ -35,7 +35,6 @@ git clone <forked_repo>
 
 ```sh
 git remote add upstream <upstream_repo>
-git remote add pantheon <pantheon_repo>
 ```
 
 
@@ -137,6 +136,13 @@ In BitBucket > Settings > Access management, add:
 
 ```
 <your_username>
+```
+
+
+#### Set up a remote for your Pantheon instance
+
+```sh
+git remote add pantheon <pantheon_repo>
 ```
 
 
