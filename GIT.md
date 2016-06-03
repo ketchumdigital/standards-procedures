@@ -17,10 +17,10 @@ git config --global push.default simple
 
 ### Grant Ketchum Digital read access to your fork
 
-In BitBucket > Settings > Access management, add:
+In BitBucket > Settings > Access management, under "Groups", add:
 
 ```
-ketchumdigital
+Administrators (digitaltechops:administrators)
 ```
 
 
