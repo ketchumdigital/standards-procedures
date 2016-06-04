@@ -97,7 +97,15 @@ git push -f
 
 #### Test and review your code
 
-If you need to test your code in the wild before creating a PR create a multidev instance in Pantheon (with the same name as your topic branch) and push your topic branch.
+If you need to test your code in the wild before creating a PR create a multidev instance in Pantheon (with the same name as your topic branch), then:
+
+##### Set up a remote for your Pantheon instance:
+
+```sh
+git remote add pantheon <pantheon_repo>
+```
+
+##### Push your topic branch:
 
 ```sh
 git push pantheon <topic_branch>
