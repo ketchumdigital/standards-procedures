@@ -12,7 +12,7 @@ git config --global push.default simple
 
 ### Fork upstream repository
 
-[https://bitbucket.org/ketchumdigital]()
+[https://bitbucket.org/ketchumdigital](https://bitbucket.org/ketchumdigital)
 
 
 ### Grant Ketchum Digital read access to your fork
