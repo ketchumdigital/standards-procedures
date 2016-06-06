@@ -20,7 +20,7 @@ git config --global push.default simple
 In BitBucket > Settings > Access management, under "Groups", give READ access to:
 
 ```
-Administrators (digitaltechops:administrators)
+Administrators (ketchumdigital:administrators)
 ```
 
 
