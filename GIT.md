@@ -62,7 +62,7 @@ git checkout -b <topic_id-topic_branch>
 #### Make atomic commits
 
 ```sh
-git add paths_to_add
+git add <path>
 git commit -m "commit message"
 ```
 
@@ -158,7 +158,7 @@ git remote add pantheon <pantheon_repo>
 #### Set up remotes for each of your forkers
 
 ```sh
-git remote add fork_<forker> <forked_repo>
+git remote add fork-<forker> <forked_repo>
 ```
 
 
